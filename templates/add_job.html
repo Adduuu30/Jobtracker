@@ -2,25 +2,50 @@
 
 {% block content %}
 
-<h2 class=" mb-4">Add New Job</h2>
-
-<form>
-    <div class="mb-3">
-        <label class="form-label">Company</label>
-        <input type="text" class="form-control" placeholder="Enter company name">
-
-    </div>
+<h2 class="mb-4">
+    {% if job %}
+        Edit Job
+    {% else %}
+        Add New Job
+    {% endif %}
+</h2>
+<form method="POST"
+      action="{% if job %}/edit-job/{{ job[0] }}{% else %}/add-job{% endif %}">
+      <div class="mb-3">
+<label class="form-label">Company</label>
+<input
+    type="text"
+    name="company"
+    class="form-control"
+    placeholder="Enter company name"
+    value="{{ job[1] if job else '' }}"
+    required>
+</div>
+<div class="mb-3">
+    <label class="form-label">Role</label>
+<input
+    type="text"
+    name="role"
+    class="form-control"
+    placeholder="Enter job role"
+    value="{{ job[2] if job else '' }}"
+    required>
+</div>
     <div class="mb-3">
         <label class="form-label">Status</label>
-        <select class="form-select">
-            <option>Applied</option>
-            <option>Interview</option>
-            <option>Rejected</option>
-            <option>Selected</option>
-        </select>
+<select name="status" class="form-select">
+    <option {% if job[5] == "Applied" %}selected{% endif %}>Applied</option>
+    <option {% if job[5] == "Interview" %}selected{% endif %}>Interview</option>
+    <option {% if job[5] == "Rejected" %}selected{% endif %}>Rejected</option>
+    <option {% if job[5] == "Selected" %}selected{% endif %}>Selected</option>
+</select>
     </div>
-    <button class="btn btn-primary">
-        Save job
-    </button>
+    <button type="submit" class="btn btn-primary">
+{% if job %}
+Update Job
+{% else %}
+Save Job
+{% endif %}
+</button>
 </form>
 {% endblock%}
