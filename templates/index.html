@@ -2,7 +2,28 @@
 
 {% block content %}
 
-<div class="text-center">
+<style>
+    .dashboard-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .dashboard-button {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .dashboard-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+
+<div class="text-center mb-5">
 
     <h1 class="display-4 fw-bold">
         JobTracker
@@ -12,13 +33,137 @@
         Manage and track all your job applications in one place.
     </p>
 
-    <a href="/add-job" class="btn btn-primary btn-lg">
-        Add New Job
+    <a href="/add-job" class="btn btn-primary btn-lg dashboard-button">
+    Add New Job
     </a>
 
-    <a href="/jobs" class="btn btn-outline-dark btn-lg">
-        View Applications
+    <a href="/jobs" class="btn btn-outline-dark btn-lg dashboard-button">
+    View Applications
     </a>
+
+</div>
+
+
+<!-- Dashboard Stats -->
+
+<div class="row g-4 mb-5">
+
+    <!-- Total Jobs -->
+    <div class="col-md-6 col-lg">
+        <a href="/jobs" class="text-decoration-none">
+    <div class="card dashboard-card text-white bg-primary h-100 shadow-sm rounded-3">                <div class="card-body text-center">
+                    <h5>Total Jobs</h5>
+                    <h2 class="fw-bold">{{ total_jobs }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!-- Applied -->
+    <div class="col-md-6 col-lg">
+        <a href="/jobs?status=Applied" class="text-decoration-none">
+            <div class="card dashboard-card text-white bg-primary h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <h5>Applied</h5>
+                    <h2 class="fw-bold">{{ applied_jobs }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!-- Interview -->
+    <div class="col-md-6 col-lg">
+        <a href="/jobs?status=Interview" class="text-decoration-none">
+            <div class="card dashboard-card text-dark bg-warning h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <h5>Interview</h5>
+                    <h2 class="fw-bold">{{ interview_jobs }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!-- Selected -->
+    <div class="col-md-6 col-lg">
+        <a href="/jobs?status=Selected" class="text-decoration-none">
+            <div class="card dashboard-card text-white bg-success h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <h5>Selected</h5>
+                    <h2 class="fw-bold">{{ selected_jobs }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!-- Rejected -->
+    <div class="col-md-6 col-lg">
+        <a href="/jobs?status=Rejected" class="text-decoration-none">
+            <div class="card dashboard-card text-white bg-danger h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <h5>Rejected</h5>
+                    <h2 class="fw-bold">{{ rejected_jobs }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Recent Applications</h5>
+    </div>
+
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover mb-0">
+
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>Location</th>
+                        <th>Apply Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for job in recent_jobs %}
+
+                    <tr>
+                        <td>{{ job[1] }}</td>
+                        <td>{{ job[2] }}</td>
+                        <td>{{ job[3] }}</td>
+                        <td>{{ job[6] }}</td>
+                        <td>{{ job[5] }}</td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="5" class="text-center py-4">
+                            No applications yet.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 

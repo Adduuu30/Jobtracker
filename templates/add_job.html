@@ -9,43 +9,100 @@
         Add New Job
     {% endif %}
 </h2>
+
 <form method="POST"
       action="{% if job %}/edit-job/{{ job[0] }}{% else %}/add-job{% endif %}">
-      <div class="mb-3">
-<label class="form-label">Company</label>
-<input
-    type="text"
-    name="company"
-    class="form-control"
-    placeholder="Enter company name"
-    value="{{ job[1] if job else '' }}"
-    required>
-</div>
-<div class="mb-3">
-    <label class="form-label">Role</label>
-<input
-    type="text"
-    name="role"
-    class="form-control"
-    placeholder="Enter job role"
-    value="{{ job[2] if job else '' }}"
-    required>
-</div>
+
+    <!-- Company -->
+    <div class="mb-3">
+        <label class="form-label">Company</label>
+        <input
+            type="text"
+            name="company"
+            class="form-control"
+            placeholder="Enter company name"
+            value="{{ job[1] if job else '' }}"
+            required>
+    </div>
+
+    <!-- Role -->
+    <div class="mb-3">
+        <label class="form-label">Role</label>
+        <input
+            type="text"
+            name="role"
+            class="form-control"
+            placeholder="Enter job role"
+            value="{{ job[2] if job else '' }}"
+            required>
+    </div>
+
+    <!-- Location -->
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input
+            type="text"
+            name="location"
+            class="form-control"
+            placeholder="Enter job location"
+            value="{{ job[3] if job else '' }}">
+    </div>
+
+    
+
+    <!-- Apply Date -->
+    <div class="mb-3">
+        <label class="form-label">Apply Date</label>
+        <input
+            type="date"
+            name="apply_date"
+            class="form-control"
+            value="{{ job[6] if job else '' }}">
+    </div>
+
+    
+    
+
+    <!-- Status -->
     <div class="mb-3">
         <label class="form-label">Status</label>
-<select name="status" class="form-select">
-    <option {% if job[5] == "Applied" %}selected{% endif %}>Applied</option>
-    <option {% if job[5] == "Interview" %}selected{% endif %}>Interview</option>
-    <option {% if job[5] == "Rejected" %}selected{% endif %}>Rejected</option>
-    <option {% if job[5] == "Selected" %}selected{% endif %}>Selected</option>
-</select>
+
+        <select name="status" class="form-select">
+
+            <option value="Applied"
+                {% if job and job[5] == "Applied" %}selected{% endif %}>
+                Applied
+            </option>
+
+            <option value="Interview"
+                {% if job and job[5] == "Interview" %}selected{% endif %}>
+                Interview
+            </option>
+
+            <option value="Selected"
+                {% if job and job[5] == "Selected" %}selected{% endif %}>
+                Selected
+            </option>
+
+            <option value="Rejected"
+                {% if job and job[5] == "Rejected" %}selected{% endif %}>
+                Rejected
+            </option>
+
+        </select>
     </div>
+
+    
+
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">
-{% if job %}
-Update Job
-{% else %}
-Save Job
-{% endif %}
-</button>
+        {% if job %}
+            Update Job
+        {% else %}
+            Save Job
+        {% endif %}
+    </button>
+
 </form>
-{% endblock%}
+
+{% endblock %}
