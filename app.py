@@ -30,6 +30,9 @@ def create_database():
     conn.close()
 
 
+
+create_database()
+
 # --------------------------
 # Home Page
 # --------------------------
@@ -282,8 +285,8 @@ def manage_jobs():
     jobs = cursor.fetchall()
 
     conn.close()
+    
 
     return render_template("manage_jobs.html", jobs=jobs)
 if __name__ == "__main__":
-    create_database()
     app.run(debug=True)
