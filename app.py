@@ -97,10 +97,12 @@ def home():
 
     # Recent Applications - Current User Only
     cursor.execute("""
-        SELECT * FROM jobs
-        WHERE user_id = ?
-        ORDER BY id DESC
-        LIMIT 5
+    SELECT id, company, role, location, salary, status,
+           apply_date, resume_version, job_link, notes
+    FROM jobs
+    WHERE user_id = ?
+    ORDER BY id DESC
+    LIMIT 5
     """, (user_id,))
 
     recent_jobs = cursor.fetchall()
@@ -412,7 +414,12 @@ def jobs():
 
 
     # Fetch current user's jobs
-    query = "SELECT * FROM jobs WHERE user_id = ?"
+    query = """
+    SELECT id, company, role, location, salary, status,
+       apply_date, resume_version, job_link, notes
+    FROM jobs
+    WHERE user_id = ?
+    """
     params = [user_id]
 
 
