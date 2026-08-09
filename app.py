@@ -13,32 +13,32 @@ def create_database():
     cursor = conn.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS jobs(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        company TEXT NOT NULL,
-        role TEXT NOT NULL,
-        location TEXT,
-        salary TEXT,
-        status TEXT,
-        apply_date TEXT,
-        resume_version TEXT,
-        job_link TEXT,
-        notes TEXT
-    )
-    """, )
+        CREATE TABLE IF NOT EXISTS jobs(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            company TEXT NOT NULL,
+            role TEXT NOT NULL,
+            location TEXT,
+            salary TEXT,
+            status TEXT,
+            apply_date TEXT,
+            resume_version TEXT,
+            job_link TEXT,
+            notes TEXT
+        )
+    """)
+
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
-    )
+        CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )
     """)
 
     conn.commit()
     conn.close()
-
-create_database()
 # --------------------------
 # Home Page
 # --------------------------
