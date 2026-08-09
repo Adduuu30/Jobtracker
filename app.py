@@ -13,6 +13,15 @@ def create_database():
     cursor = conn.cursor()
 
     cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )
+    """)
+
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS jobs(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER,
@@ -28,14 +37,12 @@ def create_database():
         )
     """)
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )
-    """)
+    # Add user_id to old jobs table if it doesn't exist
+    cursor.execute("PRAGMA table_info(jobs)")
+    columns = [column[1] for column in cursor.fetchall()]
+
+    if "user_id" not in columns:
+        cursor.execute("ALTER TABLE jobs ADD COLUMN user_id INTEGER")
 
     conn.commit()
     conn.close()
@@ -628,5 +635,7 @@ def manage_jobs():
         "manage_jobs.html",
         jobs=jobs
     )
+create_database()
+
 if __name__ == "__main__":
     app.run(debug=True)
