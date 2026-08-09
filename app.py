@@ -169,7 +169,7 @@ def login():
             session["user_id"] = user[0]
             session["user_name"] = user[1]
 
-            return redirect("/jobs")
+            return redirect("/")
 
         return "Invalid email or password"
 
