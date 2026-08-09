@@ -1,108 +1,180 @@
 {% extends "base.html" %}
 
+{% block title %}Add Job - JobTracker{% endblock %}
+
 {% block content %}
 
-<h2 class="mb-4">
-    {% if job %}
-        Edit Job
-    {% else %}
-        Add New Job
-    {% endif %}
-</h2>
+<div class="row justify-content-center">
 
-<form method="POST"
-      action="{% if job %}/edit-job/{{ job[0] }}{% else %}/add-job{% endif %}">
+    <div class="col-12 col-lg-9">
 
-    <!-- Company -->
-    <div class="mb-3">
-        <label class="form-label">Company</label>
-        <input
-            type="text"
-            name="company"
-            class="form-control"
-            placeholder="Enter company name"
-            value="{{ job[1] if job else '' }}"
-            required>
+        <!-- Page Header -->
+        <div class="text-center mb-4">
+
+            <h1 class="fw-bold mb-2">
+                Add New Job
+            </h1>
+
+            <p class="text-muted">
+                Add a new job application to your tracker.
+            </p>
+
+        </div>
+
+
+        <!-- Add Job Card -->
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body p-4 p-md-5">
+
+                <form method="POST">
+
+                    <div class="row g-4">
+
+                        <!-- Company Name -->
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Company Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="company"
+                                class="form-control"
+                                placeholder="Enter company name"
+                                required>
+
+                        </div>
+
+
+                        <!-- Job Role -->
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Job Role
+                            </label>
+
+                            <input
+                                type="text"
+                                name="role"
+                                class="form-control"
+                                placeholder="e.g. Software Developer"
+                                required>
+
+                        </div>
+
+
+                        <!-- Location -->
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                name="location"
+                                class="form-control"
+                                placeholder="e.g. Mumbai / Remote">
+
+                        </div>
+
+
+                        <!-- Salary -->
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Salary
+                            </label>
+
+                            <input
+                                type="text"
+                                name="salary"
+                                class="form-control"
+                                placeholder="e.g. ₹5 LPA">
+
+                        </div>
+
+
+                        <!-- Status -->
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Status
+                            </label>
+
+                            <select
+                                name="status"
+                                class="form-select">
+
+                                <option value="Applied">
+                                    Applied
+                                </option>
+
+                                <option value="Interview">
+                                    Interview
+                                </option>
+
+                                <option value="Selected">
+                                    Selected
+                                </option>
+
+                                <option value="Rejected">
+                                    Rejected
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Apply Date -->
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Apply Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="apply_date"
+                                class="form-control">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+
+                        <a
+                            href="/jobs"
+                            class="btn btn-outline-secondary btn-lg">
+
+                            Cancel
+
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg dashboard-button">
+
+                            Save Job
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- Role -->
-    <div class="mb-3">
-        <label class="form-label">Role</label>
-        <input
-            type="text"
-            name="role"
-            class="form-control"
-            placeholder="Enter job role"
-            value="{{ job[2] if job else '' }}"
-            required>
-    </div>
-
-    <!-- Location -->
-    <div class="mb-3">
-        <label class="form-label">Location</label>
-        <input
-            type="text"
-            name="location"
-            class="form-control"
-            placeholder="Enter job location"
-            value="{{ job[3] if job else '' }}">
-    </div>
-
-    
-
-    <!-- Apply Date -->
-    <div class="mb-3">
-        <label class="form-label">Apply Date</label>
-        <input
-            type="date"
-            name="apply_date"
-            class="form-control"
-            value="{{ job[6] if job else '' }}">
-    </div>
-
-    
-    
-
-    <!-- Status -->
-    <div class="mb-3">
-        <label class="form-label">Status</label>
-
-        <select name="status" class="form-select">
-
-            <option value="Applied"
-                {% if job and job[5] == "Applied" %}selected{% endif %}>
-                Applied
-            </option>
-
-            <option value="Interview"
-                {% if job and job[5] == "Interview" %}selected{% endif %}>
-                Interview
-            </option>
-
-            <option value="Selected"
-                {% if job and job[5] == "Selected" %}selected{% endif %}>
-                Selected
-            </option>
-
-            <option value="Rejected"
-                {% if job and job[5] == "Rejected" %}selected{% endif %}>
-                Rejected
-            </option>
-
-        </select>
-    </div>
-
-    
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">
-        {% if job %}
-            Update Job
-        {% else %}
-            Save Job
-        {% endif %}
-    </button>
-
-</form>
+</div>
 
 {% endblock %}

@@ -1,51 +1,220 @@
 {% extends "base.html" %}
 
+{% block title %}Manage Jobs - JobTracker{% endblock %}
+
 {% block content %}
 
-<h2 class="mb-4">Manage Jobs</h2>
+<!-- Page Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<table class="table table-bordered table-hover">
+    <div>
+        <h1 class="fw-bold mb-1">
+            Manage Jobs
+        </h1>
 
-    <thead class="table-dark">
-        <tr>
-            <th>SR No.</th>
-            <th>Company</th>
-            <th>Role</th>
-            <th>Apply Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+        <p class="text-muted mb-0">
+            Edit or delete your job applications.
+        </p>
+    </div>
 
-    <tbody>
+    <a href="/add-job"
+       class="btn btn-primary dashboard-button">
+        + Add New Job
+    </a>
 
-        {% for job in jobs %}
+</div>
 
-        <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ job[1] }}</td>
-            <td>{{ job[2] }}</td>
-            <td>{{ job[6] }}</td>
-            <td>{{ job[5] }}</td>
 
-            <td>
-                <a href="/edit-job/{{ job[0] }}"
-                   class="btn btn-warning btn-sm">
-                    Edit
-                </a>
+<!-- Manage Jobs Card -->
+<div class="card border-0 shadow-sm rounded-4">
 
-                <a href="/delete-job/{{ job[0] }}"
-                   class="btn btn-danger btn-sm"
-                   onclick="return confirm('Are you sure you want to delete this job?')">
-                    Delete
-                </a>
-            </td>
-        </tr>
+    <!-- Card Header -->
+    <div class="card-header bg-dark text-white p-3 rounded-top-4">
 
-        {% endfor %}
+        <div class="d-flex justify-content-between align-items-center">
 
-    </tbody>
+            <h5 class="mb-0">
+                Your Applications
+            </h5>
 
-</table>
+            <span class="badge bg-light text-dark">
+                {{ jobs|length }} Jobs
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Table -->
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th class="px-4">
+                            #
+                        </th>
+
+                        <th>
+                            Company
+                        </th>
+
+                        <th>
+                            Role
+                        </th>
+
+                        <th>
+                            Apply Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for job in jobs %}
+
+                    <tr>
+
+                        <!-- Serial Number -->
+                        <td class="px-4 fw-semibold text-muted">
+                            {{ loop.index }}
+                        </td>
+
+
+                        <!-- Company -->
+                        <td class="fw-semibold">
+                            {{ job[1] }}
+                        </td>
+
+
+                        <!-- Role -->
+                        <td>
+                            {{ job[2] }}
+                        </td>
+
+
+                        <!-- Apply Date -->
+                        <td>
+                            {{ job[6] or "—" }}
+                        </td>
+
+
+                        <!-- Status -->
+                        <td>
+
+                            {% if job[5] == "Applied" %}
+
+                                <span class="badge bg-primary">
+                                    Applied
+                                </span>
+
+                            {% elif job[5] == "Interview" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    Interview
+                                </span>
+
+                            {% elif job[5] == "Selected" %}
+
+                                <span class="badge bg-success">
+                                    Selected
+                                </span>
+
+                            {% elif job[5] == "Rejected" %}
+
+                                <span class="badge bg-danger">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+                                    {{ job[5] }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Actions -->
+                        <td>
+
+                            <a href="/edit-job/{{ job[0] }}"
+                               class="btn btn-warning btn-sm me-1">
+
+                                Edit
+
+                            </a>
+
+
+                            <a href="/delete-job/{{ job[0] }}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this job?')">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% else %}
+
+                    <!-- Empty State -->
+                    <tr>
+
+                        <td colspan="6"
+                            class="text-center py-5">
+
+                            <h5 class="text-muted">
+                                No jobs available
+                            </h5>
+
+                            <p class="text-muted">
+                                Start tracking your job applications by adding a new job.
+                            </p>
+
+                            <a href="/add-job"
+                               class="btn btn-primary dashboard-button">
+
+                                + Add New Job
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

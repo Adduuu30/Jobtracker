@@ -1,158 +1,239 @@
 {% extends "base.html" %}
 
+{% block title %}Dashboard - JobTracker{% endblock %}
+
 {% block content %}
-
-<style>
-    .dashboard-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .dashboard-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
-    }
-
-    .dashboard-button {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .dashboard-button:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-</style>
-
 
 <div class="text-center mb-5">
 
-    <h1 class="display-4 fw-bold">
-        JobTracker
+    <h1 class="display-5 fw-bold mb-2">
+        Welcome to JobTracker
     </h1>
 
-    <p class="lead">
+    <p class="text-muted fs-5 mb-4">
         Manage and track all your job applications in one place.
     </p>
 
-    <a href="/add-job" class="btn btn-primary btn-lg dashboard-button">
-    Add New Job
-    </a>
+    <div>
+        <a href="/add-job" class="btn btn-primary btn-lg me-2 dashboard-button">
+            + Add New Job
+        </a>
 
-    <a href="/jobs" class="btn btn-outline-dark btn-lg dashboard-button">
-    View Applications
-    </a>
+        <a href="/jobs" class="btn btn-outline-dark btn-lg dashboard-button">
+            View Applications
+        </a>
+    </div>
 
 </div>
-
-
-<!-- Dashboard Stats -->
-
+<!-- Statistics Cards -->
 <div class="row g-4 mb-5">
 
     <!-- Total Jobs -->
-    <div class="col-md-6 col-lg">
-        <a href="/jobs" class="text-decoration-none">
-            <div class="card dashboard-card text-white bg-primary h-100 shadow-sm rounded-3">                <div class="card-body text-center">
-                    <h5>Total Jobs</h5>
-                    <h2 class="fw-bold">{{ total_jobs }}</h2>
-                </div>
+<div class="col-12 col-sm-6 col-lg">
+    <a href="/jobs" class="text-decoration-none">
+        <div class="card dashboard-card text-white bg-primary border-0 shadow-sm rounded-3 h-100">
+            <div class="card-body text-center p-4">
+
+                <p class="mb-2">
+                    Total Jobs
+                </p>
+
+                <h2 class="fw-bold mb-0">
+                    {{ total_jobs }}
+                </h2>
+
             </div>
-        </a>
-    </div>
+        </div>
+    </a>
+</div>
+<!-- Applied -->
+<div class="col-12 col-sm-6 col-lg">
+    <a href="/jobs?status=Applied" class="text-decoration-none">
+        <div class="card dashboard-card text-white bg-info border-0 shadow-sm rounded-3 h-100">
+            <div class="card-body text-center p-4">
 
+                <p class="mb-2">
+                    Applied
+                </p>
 
-    <!-- Applied -->
-    <div class="col-md-6 col-lg">
-        <a href="/jobs?status=Applied" class="text-decoration-none">
-            <div class="card dashboard-card text-white bg-info h-100 shadow-sm rounded-3">
-                <div class="card-body text-center">
-                    <h5>Applied</h5>
-                    <h2 class="fw-bold">{{ applied_jobs }}</h2>
-                </div>
+                <h2 class="fw-bold mb-0">
+                    {{ applied_jobs }}
+                </h2>
+
             </div>
-        </a>
-    </div>
-
-
-    <!-- Interview -->
-    <div class="col-md-6 col-lg">
-        <a href="/jobs?status=Interview" class="text-decoration-none">
-            <div class="card dashboard-card text-dark bg-warning h-100 shadow-sm rounded-3">
-                <div class="card-body text-center">
-                    <h5>Interview</h5>
-                    <h2 class="fw-bold">{{ interview_jobs }}</h2>
-                </div>
-            </div>
-        </a>
-    </div>
-
-
-    <!-- Selected -->
-    <div class="col-md-6 col-lg">
-        <a href="/jobs?status=Selected" class="text-decoration-none">
-            <div class="card dashboard-card text-white bg-success h-100 shadow-sm rounded-3">
-                <div class="card-body text-center">
-                    <h5>Selected</h5>
-                    <h2 class="fw-bold">{{ selected_jobs }}</h2>
-                </div>
-            </div>
-        </a>
-    </div>
-
-
-    <!-- Rejected -->
-    <div class="col-md-6 col-lg">
-        <a href="/jobs?status=Rejected" class="text-decoration-none">
-            <div class="card dashboard-card text-white bg-danger h-100 shadow-sm rounded-3">
-                <div class="card-body text-center">
-                    <h5>Rejected</h5>
-                    <h2 class="fw-bold">{{ rejected_jobs }}</h2>
-                </div>
-            </div>
-        </a>
-    </div>
-
+        </div>
+    </a>
 </div>
 
-<div class="card shadow-sm mt-4">
 
-    <div class="card-header bg-dark text-white">
-        <h5 class="mb-0">Recent Applications</h5>
+<!-- Interview -->
+<div class="col-12 col-sm-6 col-lg">
+    <a href="/jobs?status=Interview" class="text-decoration-none">
+        <div class="card dashboard-card text-dark bg-warning border-0 shadow-sm rounded-3 h-100">
+            <div class="card-body text-center p-4">
+
+                <p class="mb-2">
+                    Interviews
+                </p>
+
+                <h2 class="fw-bold mb-0">
+                    {{ interview_jobs }}
+                </h2>
+
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<!-- Selected -->
+<div class="col-12 col-sm-6 col-lg">
+    <a href="/jobs?status=Selected" class="text-decoration-none">
+        <div class="card dashboard-card text-white bg-success border-0 shadow-sm rounded-3 h-100">
+            <div class="card-body text-center p-4">
+
+                <p class="mb-2">
+                    Selected
+                </p>
+
+                <h2 class="fw-bold mb-0">
+                    {{ selected_jobs }}
+                </h2>
+
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<!-- Rejected -->
+<div class="col-12 col-sm-6 col-lg">
+    <a href="/jobs?status=Rejected" class="text-decoration-none">
+        <div class="card dashboard-card text-white bg-danger border-0 shadow-sm rounded-3 h-100">
+            <div class="card-body text-center p-4">
+
+                <p class="mb-2">
+                    Rejected
+                </p>
+
+                <h2 class="fw-bold mb-0">
+                    {{ rejected_jobs }}
+                </h2>
+
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Recent Applications -->
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-header bg-dark text-white p-3 rounded-top-4">
+        <h5 class="mb-0">
+            Recent Applications
+        </h5>
     </div>
+
 
     <div class="card-body p-0">
 
         <div class="table-responsive">
 
-            <table class="table table-hover mb-0">
+            <table class="table table-hover align-middle mb-0">
 
-                <thead>
+                <thead class="table-light">
+
                     <tr>
-                        <th>Company</th>
+                        <th class="px-4">Company</th>
                         <th>Role</th>
                         <th>Location</th>
                         <th>Apply Date</th>
                         <th>Status</th>
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
                     {% for job in recent_jobs %}
 
                     <tr>
-                        <td>{{ job[1] }}</td>
-                        <td>{{ job[2] }}</td>
-                        <td>{{ job[3] }}</td>
-                        <td>{{ job[6] }}</td>
-                        <td>{{ job[5] }}</td>
+
+                        <td class="px-4 fw-semibold">
+                            {{ job[1] }}
+                        </td>
+
+                        <td>
+                            {{ job[2] }}
+                        </td>
+
+                        <td>
+                            {{ job[3] or "—" }}
+                        </td>
+
+                        <td>
+                            {{ job[6] or "—" }}
+                        </td>
+
+                        <td>
+
+                            {% if job[5] == "Applied" %}
+
+                                <span class="badge text-bg-info">
+                                    Applied
+                                </span>
+
+                            {% elif job[5] == "Interview" %}
+
+                                <span class="badge text-bg-warning">
+                                    Interview
+                                </span>
+
+                            {% elif job[5] == "Selected" %}
+
+                                <span class="badge text-bg-success">
+                                    Selected
+                                </span>
+
+                            {% elif job[5] == "Rejected" %}
+
+                                <span class="badge text-bg-danger">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge text-bg-secondary">
+                                    {{ job[5] or "Unknown" }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
                     </tr>
 
                     {% else %}
 
                     <tr>
-                        <td colspan="5" class="text-center py-4">
-                            No applications yet.
+
+                        <td colspan="5" class="text-center py-5">
+
+                            <h5 class="text-muted">
+                                No applications yet
+                            </h5>
+
+                            <p class="text-muted mb-3">
+                                Start tracking your job applications today.
+                            </p>
+
+                            <a href="/add-job" class="btn btn-primary">
+                                Add Your First Job
+                            </a>
+
                         </td>
+
                     </tr>
 
                     {% endfor %}
